@@ -1,0 +1,56 @@
+git init
+npm init -y
+npm i -D git-commit-msg-linter
+npm i -D typescript @types/node
+tsc --init
+
+sudo npm install -g eslint@6
+npm install --save-dev eslint@6 eslint-plugin-standard@4 eslint-plugin-promise@4 eslint-plugin-import@2 eslint-plugin-node@11 @typescript-eslint/eslint-plugin@2 eslint-config-standard-with-typescript@16
+npm i -D lint-staged
+npm i -D husky
+npm i -D jest @types/jest ts-jest
+
+###############
+sudo npm i -g jest
+jest --init
+# The following questions will help Jest to create a suitable configuration for your project
+# ✔ Would you like to use Jest when running "test" script in "package.json"? … yes
+# ✔ Choose the test environment that will be used for testing › node
+# ✔ Do you want Jest to add coverage reports? … yes
+# ✔ Automatically clear mock calls and instances between every test? … no
+
+sudo npm install -g npm-check
+
+npm install --save validator
+npm install -D @types/validator
+
+npm install --save bcrypt
+npm install -D @types/bcrypt
+
+npm install -D @shelf/jest-mongodb @types/mongodb
+npm install --save mongodb
+
+npm install --save express
+npm install -D @types/express
+
+npm install -D supertest @types/supertest
+
+npm install --save jsonwebtoken
+npm install -D @types/jsonwebtoken
+
+npm install -D rimraf
+
+npm install --save nodemon
+
+npm install -D coveralls
+
+npm install -D mockdate
+
+npm install --save module-alias
+
+npm install --save swagger-ui-express
+npm install -D @types/swagger-ui-express
+
+npm install -D @types/faker faker
+npm install -D copyfiles
+

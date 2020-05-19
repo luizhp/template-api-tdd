@@ -1,0 +1,16 @@
+$ git config --global --edit
+
+.gitconfig
+----------
+[user]
+	name = name
+	email = email
+[core]
+	editor = gedit --wait
+[push]
+    followTags = true
+[alias]
+    s = !git status -s
+    c = !git add --all && git commit -m
+    l = !git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(green)[%cd...%cr]%Creset %C(bold blue)<%an> %n%C(bold)%s%n' --abbrev-commit --date=iso-local
+  lnp = !git --no-pager log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(green)[%cd...%cr]%Creset %C(bold blue)<%an> %n%C(bold)%s%n' --abbrev-commit --date=iso-local
