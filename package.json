@@ -1,6 +1,6 @@
 {
   "name": "template-api-tdd",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "NodeJs Rest API using TDD, Clean Architecture and Typescript",
   "directories": {
     "doc": "docs"
