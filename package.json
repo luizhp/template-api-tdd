@@ -8,8 +8,12 @@
   "scripts": {
     "start": "node dist/main/server.js",
     "prebuild": "rimraf dist",
-    "postbuild": "copyfiles -u 1 public/**/* dist/static",
     "build": "tsc -p tsconfig-build.json",
+    "postbuild": "copyfiles -u 1 public/**/* dist/static",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+    "preup": "npm run build",
+    "up": "docker-compose up -d",
+    "down": "docker-compose down",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
