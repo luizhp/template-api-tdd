@@ -1,0 +1,418 @@
+01. chore: initial release 0.0.1
+
+    npm init -y
+
+    package.json definitions
+    license
+    .gitignore
+    .vscode/settings.json
+
+02. git tag -a "0.0.1" -m "0.0.1"
+
+03. chore: add git-commit-msg-linter package
+
+    git-commit-msg-linter
+
+    https://www.npmjs.com/package/git-commit-msg-linter
+
+    npm i -D git-commit-msg-linter
+
+04. chore: add typescript @types/node packages
+
+    typescript
+
+    https://www.npmjs.com/package/typescript
+
+    npm i -D typescript @types/node
+
+05. chore: setup typescript configuration
+
+    tsc --init
+
+    . tsconfig.json
+      {
+        "compilerOptions": {
+          "target": "es2019",
+          "module": "commonjs",
+          "sourceMap": true,
+          "outDir": "dist",
+          "rootDir": "src",
+          "baseUrl": "src",
+          "esModuleInterop": true
+        },
+        "include": ["src"],
+        "exclude": []
+      }
+
+    . tsconfig-build.json
+      {
+        "extends": "./tsconfig.json"
+      }
+
+    . package.json
+      "build": "tsc -p tsconfig-build.json",
+
+06. chore: setup start script
+
+    . src/main/server.ts
+      console.log('hello')
+
+    . package.json
+      "start": "node dist/main/server.js",
+
+07. chore: add eslint stuff package
+
+    eslint-config-standard-with-typescript
+
+    https://www.npmjs.com/package/eslint-config-standard-with-typescript
+
+    npm install --save-dev eslint@7 eslint-plugin-standard@4 eslint-plugin-promise@4 eslint-plugin-import@2 eslint-plugin-node@11 @typescript-eslint/eslint-plugin@4 eslint-config-standard-with-typescript
+
+    . checar se há atualizações em algum pacote: 
+      $ npm-check -s -u
+
+08. chore: setup eslint configuration
+
+    .eslintrc.json
+    .eslintignore
+
+09. chore: add lint-staged package
+
+    lint-staged
+
+    https://www.npmjs.com/package/lint-staged
+
+    npm i -D lint-staged
+
+10. chore: setup lint-staged configuration
+
+    . .lintstagedrc
+      {
+        "*.ts": [
+          "eslint 'src/**' --fix"
+        ]
+      }
+
+11. chore: add husky package
+
+    husky
+
+    https://www.npmjs.com/package/husky
+
+    npm i -D husky
+
+12. chore: setup husky configuration
+
+    . .huskyrc.json
+      {
+        "hooks": {
+          "pre-commit": "lint-staged"
+        }
+      }
+
+13. chore: add jest package
+
+    jest
+
+    https://www.npmjs.com/package/jest
+    https://www.npmjs.com/package/ts-jest
+
+    npm i -D jest ts-jest @types/jest
+
+14. chore: setup jest configuration
+
+    . .lintstagedrc.json
+
+      {
+        "*.ts": [
+          "eslint 'src/**' --fix",
+          "npm run test:staged"
+        ]
+      }
+
+    . jest.config.js
+
+      module.exports = {
+        collectCoverageFrom: [
+          '<rootDir>/src/**/*.ts',
+          '!<rootDir>/src/main/**',
+          '!**/test/**'
+        ],
+        coverageDirectory: 'coverage',
+        coverageProvider: 'v8',
+        roots: ['<rootDir>/src'],
+        testEnvironment: 'node',
+        transform: {
+          '.+\\.ts$': 'ts-jest'
+        }
+      }
+
+    . tsconfig-build.json
+
+      {
+        "extends": "./tsconfig.json",
+        "exclude": ["**/*.spec.ts", "**/*.test.ts", "**/test/**"]
+      }
+
+    . package.json
+
+      "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+      "test:verbose": "jest --passWithNoTests --runInBand",
+      "test:staged": "npm test -- --findRelatedTests"
+
+    . .vscode/Jest Test Describe block Snippet from Mango.code-snippets
+
+15. chore: add @shelf/jest-mongodb @types/mongodb package
+
+    jest-mongodb
+
+    https://www.npmjs.com/package/@shelf/jest-mongodb
+
+    npm i -D @shelf/jest-mongodb @types/mongodb
+
+16. chore: setup jest-mongodb configuration
+
+    . jest.config.js
+
+      preset: '@shelf/jest-mongodb',
+
+    jest-mongodb-config.js
+
+17. chore: add jest test script for unit and integration tests
+
+    . jest-integration-config.js
+
+      const config = require('./jest.config')
+      config.testMatch = ['**/*.test.ts']
+      module.exports = config
+
+    . jest-unit-config.js
+
+      const config = require('./jest.config')
+      config.testMatch = ['**/*.spec.ts']
+      module.exports = config
+
+    . package.json
+
+      "test:unit": "npm test -- --watch -c jest-unit-config.js",
+      "test:integration": "npm test -- --watch -c jest-integration-config.js",
+
+18. chore: add coveralls package
+
+    coveralls - https://coveralls.io/
+
+    https://www.npmjs.com/package/coveralls
+
+    npm install -D coveralls
+
+19. chore: setup coveralls configuration
+
+    . .huskyrc.json
+      {
+        "hooks": {
+          "pre-commit": "lint-staged",
+          "pre-push": "npm run test:ci"
+        }
+      }
+
+    . package.json
+      "test:ci": "npm test -- --coverage",
+      "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
+
+20. chore: add travis configuration
+
+    travis - https://travis-ci.org/
+    
+    .travis.yml
+
+21. chore: add module-alias package
+
+    module-alias
+
+    https://www.npmjs.com/package/module-alias
+
+    npm install --save module-alias
+
+22. chore: setup module-alias configuration
+
+    . src/main/server.ts
+
+      import 'module-alias/register'
+
+    . jest.config.js
+
+      moduleNameMapper: {
+        '@/(.*)': '<rootDir>/src/$1'
+      },
+    
+    . tsconfig.json
+
+      "paths": {
+        "@/*": ["*"]
+      }
+
+    . package.json
+
+      ,
+      "_moduleAliases": {
+        "@": "dist"
+      }
+
+23. chore: add rimraf package
+
+    rimraf
+
+    https://www.npmjs.com/package/rimraf
+
+    npm install -D rimraf
+
+24. chore: add prebuild script
+
+    . package.json
+
+      "prebuild": "rimraf dist",
+
+25. chore: add copyfiles package
+
+    copyfiles
+
+    https://www.npmjs.com/package/copyfiles
+
+    npm install -D copyfiles
+
+26. chore: add postbuild script
+
+    . package.json
+
+      "postbuild": "copyfiles -u 1 public/**/* dist/static",
+
+27. chore: add nodemon package
+
+    nodemon
+
+    https://www.npmjs.com/package/nodemon
+
+    npm install --save nodemon
+
+28. chore: setup docker-compose configuration
+
+    . docker-compose.yml
+
+    . package.json
+
+      "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+      "preup": "npm run build",
+      "up": "docker-compose up -d",
+      "down": "docker-compose down",
+
+    . .vscode/launch.json
+
+      {
+        "version": "0.2.0",
+        "configurations": [
+          {
+            "type": "node",
+            "request": "attach",
+            "name": "Docker: Attach to Node",
+            "remoteRoot": "/usr/src/clean-node-api",
+            "port": 9222,
+            "restart": true
+          }, {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Node",
+            "port": 9222,
+            "restart": true
+          }
+        ]
+      }
+
+29. chore: add mongodb package
+
+    mongodb
+
+    https://www.npmjs.com/package/mongodb
+
+    npm install --save mongodb
+
+30. chore: add express @types/express packages
+
+    express
+
+    https://www.npmjs.com/package/express
+
+    npm install --save express
+    npm install -D @types/express
+
+31. chore: add jsonwebtoken @types/jsonwebtoken packages
+
+    jsonwebtoken
+
+    https://www.npmjs.com/package/jsonwebtoken
+
+    npm install --save jsonwebtoken
+    npm install -D @types/jsonwebtoken
+
+32. chore: add validator @types/validator packages
+
+    validator
+
+    https://www.npmjs.com/package/validator
+
+    npm install --save validator
+    npm install -D @types/validator
+
+33. chore: add bcrypt @types/bcrypt packages
+
+    bcrypt
+
+    https://www.npmjs.com/package/bcrypt
+
+    npm install --save bcrypt
+    npm install -D @types/bcrypt
+
+34. chore: add faker @types/faker packages
+
+    faker
+
+    https://www.npmjs.com/package/faker
+
+    npm install -D faker @types/faker
+
+35. chore: add mockdate @types/mockdate packages
+
+    mockdate
+
+    https://www.npmjs.com/package/mockdate
+
+    npm install -D mockdate @types/mockdate
+
+36. chore: add supertest @types/supertest packages
+
+    supertest
+
+    https://www.npmjs.com/package/supertest
+
+    npm install -D supertest @types/supertest
+
+37. chore: add swagger-ui-express @types/swagger-ui-express packages
+
+    https://swagger.io/
+    https://swagger.io/docs/specification/about/
+
+    npm install --save swagger-ui-express
+    npm install -D @types/swagger-ui-express
+
+38. chore: add npm-check package
+
+    npm-check
+
+    https://www.npmjs.com/package/npm-check
+
+    npm install -D npm-check
+
+39. chore: add npm-check script
+
+    . package.json
+
+      "check": "npm-check -s -u",
