@@ -1,0 +1,17 @@
+{
+  "explorer.compactFolders": false,
+  "editor.tabSize": 2,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "eslint.format.enable": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "javascript.referencesCodeLens.showOnAllFunctions": false,
+  "javascript.referencesCodeLens.enabled": false,
+  "typescript.implementationsCodeLens.enabled": false,
+  "typescript.referencesCodeLens.enabled": false,
+  "typescript.referencesCodeLens.showOnAllFunctions": false
+}
