@@ -8,6 +8,7 @@
   "scripts": {
     "start": "node dist/main/server.js",
     "prebuild": "rimraf dist",
+    "postbuild": "copyfiles -u 1 public/**/* dist/static",
     "build": "tsc -p tsconfig-build.json",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
